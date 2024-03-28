@@ -1,9 +1,8 @@
-import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mvvmapp/res/components/round_button.dart';
 import 'package:mvvmapp/utils/utils.dart';
+import 'package:mvvmapp/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -31,7 +30,9 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     final height = MediaQuery.of(context).size.height * 1;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
@@ -90,6 +91,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               RoundButton(
                 title: 'Login',
+                loading: authViewModel.loading,
                 onPress: () {
                   if (_emailController.text.toString().isEmpty) {
                     Utils.flushBarErrorMessage('Please enter email', context);
@@ -100,7 +102,12 @@ class _LoginViewState extends State<LoginView> {
                     Utils.flushBarErrorMessage(
                         'Enter 6 digits password', context);
                   } else {
-                    print('Api Hits');
+                    Map data = {
+                      'email': _emailController.text.toString(),
+                      'password': _passwordController.text.toString(),
+                    };
+                    authViewModel.loginApi(data, context);
+                    print('Api hit');
                   }
                 },
               ),
