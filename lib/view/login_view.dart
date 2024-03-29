@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mvvmapp/res/components/round_button.dart';
-import 'package:mvvmapp/utils/routes/routes.dart';
 import 'package:mvvmapp/utils/routes/routes_name.dart';
 import 'package:mvvmapp/utils/utils.dart';
 import 'package:mvvmapp/view_model/auth_view_model.dart';
